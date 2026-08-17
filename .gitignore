@@ -1,0 +1,197 @@
+# LedgerGuard - .NET / Visual Studio / Rider / VS Code
+# Based on GitHub's official modern .NET and Visual Studio .gitignore templates.
+
+# =========================
+# Build results
+# =========================
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# =========================
+# .NET generated files
+# =========================
+artifacts/
+project.lock.json
+project.fragment.lock.json
+artifacts.json
+
+# ASP.NET generated content
+ScaffoldingReadMe.txt
+
+# =========================
+# Test results
+# =========================
+[Tt]est[Rr]esult*/
+[Tt]est[Rr]esults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Coverage tools
+coverage/
+coverage-*/
+coverage.*
+*.opencover.xml
+*.cobertura.xml
+
+# NUnit
+TestResult.xml
+nunit-*.xml
+
+# =========================
+# Visual Studio
+# =========================
+.vs/
+
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache / generated files
+*.VC.db
+*.VC.VC.opendb
+*.opendb
+*.sdf
+*.cachefile
+
+# =========================
+# JetBrains Rider / ReSharper
+# =========================
+.idea/
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+
+# =========================
+# NuGet
+# =========================
+*.nupkg
+*.snupkg
+
+# NuGet package restore
+packages/
+!packages/build/
+!packages/repositories.config
+
+# NuGet generated files
+*.nuget.props
+*.nuget.targets
+
+# =========================
+# Local environment / secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+secrets.json
+appsettings.Local.json
+appsettings.*.Local.json
+
+# Local user-specific configuration
+*.local.json
+*.local.config
+
+# =========================
+# Docker / local containers
+# =========================
+docker-data/
+postgres-data/
+.postgres/
+.pgdata/
+
+# Local Docker overrides
+docker-compose.override.yml
+compose.override.yml
+
+# =========================
+# Databases / local data
+# =========================
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+*.swp
+*.swo
+
+# =========================
+# OS generated files
+# =========================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# =========================
+# Certificates / keys
+# =========================
+*.pfx
+*.p12
+*.key
+*.pem
+
+# =========================
+# Publish output
+# =========================
+[Pp]ublish/
+publish/
+*.Publish.xml
+*.pubxml.user
+
+# =========================
+# Benchmark / profiling output
+# =========================
+BenchmarkDotNet.Artifacts/
+*.diagsession
+
+# =========================
+# Misc generated files
+# =========================
+Generated\ Files/
+*.pidb
+*.svclog
+*.scc
