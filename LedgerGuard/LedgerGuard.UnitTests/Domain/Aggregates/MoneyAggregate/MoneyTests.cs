@@ -60,8 +60,8 @@ public sealed class MoneyTests
     [TestCase(-56.80)]
     [TestCase(-39.81)]
     [TestCase(-24.99)]
-    [TestCase(0)]
-    public void Constructor_WhenAmountIsZeroOrNegative_ShouldThrowArgumentException(decimal invalidAmount)
+    [TestCase(-0.01)]
+    public void Constructor_WhenAmountIsNegative_ShouldThrowArgumentException(decimal invalidAmount)
     {
         // Arrange
         var currency = Currency.Brl;
@@ -70,7 +70,7 @@ public sealed class MoneyTests
         Action act = () => new Money(invalidAmount, currency);
 
         // Assert
-        act.Should().Throw<ArgumentOutOfRangeException>().WithMessage("Monetary values cannot be zero or negative. (Parameter 'amount')");
+        act.Should().Throw<ArgumentOutOfRangeException>().WithMessage("Monetary values cannot be negative. (Parameter 'amount')");
     }
     
     [Test]
@@ -158,7 +158,7 @@ public sealed class MoneyTests
         Action act = () => balance.Subtract(amount);
         
         // Act & Assert
-        act.Should().Throw<ArgumentOutOfRangeException>().WithMessage("Monetary values cannot be zero or negative. (Parameter 'amount')");
+        act.Should().Throw<ArgumentOutOfRangeException>().WithMessage("Monetary values cannot be negative. (Parameter 'amount')");
     }
 
     [Test]

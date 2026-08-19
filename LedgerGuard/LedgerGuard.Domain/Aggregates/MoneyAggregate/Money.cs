@@ -24,10 +24,10 @@ public class Money
             throw new ArgumentException("Monetary values cannot have more than two decimal places.");
         }
 
-        if (amount <= 0)
+        if (amount < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(amount), 
-                "Monetary values cannot be zero or negative.");
+                "Monetary values cannot be negative.");
         }
 
         Amount = amount;
@@ -35,6 +35,7 @@ public class Money
     }
 
     public static Money CreateBrl(decimal amount) => new(amount, Currency.Brl);
+    public static Money Zero(Currency currency) => new(0m, currency);
     
     public Money Add(Money other)
     {
