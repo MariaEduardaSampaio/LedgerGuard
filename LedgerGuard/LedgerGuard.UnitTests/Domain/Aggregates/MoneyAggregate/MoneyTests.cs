@@ -11,7 +11,7 @@ public sealed class MoneyTests
     {
         // Arrange
         var amount = 100.00m;
-        var currency = Currency.Brl;
+        var currency = ECurrency.Brl;
 
         // Act
         var money = new Money(amount, currency);
@@ -29,7 +29,7 @@ public sealed class MoneyTests
     public void Constructor_WhenAmountHasMoreThanTwoDecimalPlaces_ShouldThrowArgumentException(decimal invalidAmount)
     {
         // Arrange
-        var currency = Currency.Brl;
+        var currency = ECurrency.Brl;
 
         // Act
         Action act = () => new Money(invalidAmount, currency);
@@ -47,7 +47,7 @@ public sealed class MoneyTests
     public void Constructor_WhenAmountHasExactlyTwoDecimalPlaces_ShouldSetAmount(decimal validAmount)
     {
         // Arrange
-        var currency = Currency.Brl;
+        var currency = ECurrency.Brl;
 
         // Act
         var money = new Money(validAmount, currency);
@@ -64,7 +64,7 @@ public sealed class MoneyTests
     public void Constructor_WhenAmountIsNegative_ShouldThrowArgumentException(decimal invalidAmount)
     {
         // Arrange
-        var currency = Currency.Brl;
+        var currency = ECurrency.Brl;
 
         // Act
         Action act = () => new Money(invalidAmount, currency);
@@ -100,7 +100,7 @@ public sealed class MoneyTests
     public void Create_WhenCurrencyIsUndefined_ShouldRejectMoney()
     {
         // Arrange
-        var invalidCurrency = (Currency)999;
+        var invalidCurrency = (ECurrency)999;
 
         Action act = () => new Money(100m, invalidCurrency);
 
@@ -112,8 +112,8 @@ public sealed class MoneyTests
     public void Add_WhenAddingDecimalAmounts_ShouldPreservePrecision()
     {
         // Arrange
-        var first = new Money(0.10m, Currency.Brl);
-        var second = new Money(0.20m, Currency.Brl);
+        var first = new Money(0.10m, ECurrency.Brl);
+        var second = new Money(0.20m, ECurrency.Brl);
 
         // Act
         var result = first.Add(second);
@@ -125,8 +125,8 @@ public sealed class MoneyTests
     [Test]
     public void Add_WhenAmountsAreValid_ShouldReturnSum()
     {
-        var first = new Money(0.31m, Currency.Brl);
-        var second = new Money(0.45m, Currency.Brl);
+        var first = new Money(0.31m, ECurrency.Brl);
+        var second = new Money(0.45m, ECurrency.Brl);
 
         // Act
         var result = first.Add(second);
@@ -138,8 +138,8 @@ public sealed class MoneyTests
     [Test]
     public void Add_WhenResultExceedsMaximum_ShouldRejectOperation()
     {
-        var first = new Money(Money.MaxAmount, Currency.Brl);
-        var second = new Money(0.01m, Currency.Brl);
+        var first = new Money(Money.MaxAmount, ECurrency.Brl);
+        var second = new Money(0.01m, ECurrency.Brl);
 
         // Act
         Action act = () => first.Add(second);
@@ -152,8 +152,8 @@ public sealed class MoneyTests
     public void Subtract_WhenResultWouldBeNegative_ShouldRejectOperation()
     {
         // Arrange
-        var balance = new Money(50m, Currency.Brl);
-        var amount = new Money(100m, Currency.Brl);
+        var balance = new Money(50m, ECurrency.Brl);
+        var amount = new Money(100m, ECurrency.Brl);
         
         Action act = () => balance.Subtract(amount);
         
@@ -165,8 +165,8 @@ public sealed class MoneyTests
     public void Subtract_WhenAmountsAreValid_ShouldReturnDifference()
     {
         // Arrange
-        var balance = new Money(123.45m, Currency.Brl);
-        var amount = new Money(67.89m, Currency.Brl);
+        var balance = new Money(123.45m, ECurrency.Brl);
+        var amount = new Money(67.89m, ECurrency.Brl);
         
         // Act
         var result = balance.Subtract(amount);

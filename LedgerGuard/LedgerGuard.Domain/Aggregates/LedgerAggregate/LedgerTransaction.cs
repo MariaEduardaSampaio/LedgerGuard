@@ -5,12 +5,12 @@ public sealed class LedgerTransaction
     private readonly List<LedgerEntry> _entries;
 
     public Guid Id { get; }
-    public LedgerTransactionType Type { get; }
+    public ELedgerTransactionType Type { get; }
     public IReadOnlyCollection<LedgerEntry> Entries => _entries.AsReadOnly();
 
     private LedgerTransaction(
         Guid id,
-        LedgerTransactionType type,
+        ELedgerTransactionType type,
         IEnumerable<LedgerEntry> entries)
     {
         Id = id;
@@ -19,7 +19,7 @@ public sealed class LedgerTransaction
     }
 
     public static LedgerTransaction Create(
-        LedgerTransactionType type,
+        ELedgerTransactionType type,
         IEnumerable<LedgerEntry> entries)
     {
         var entryList = entries.ToList();
@@ -28,7 +28,7 @@ public sealed class LedgerTransaction
             throw new InvalidOperationException(
                 "A ledger transaction must have at least two entries.");
         
-        if (!Enum.IsDefined(typeof(LedgerTransactionType), type))
+        if (!Enum.IsDefined(typeof(ELedgerTransactionType), type))
             throw new ArgumentOutOfRangeException(nameof(type),
                 "Invalid ledger transaction type.");
         
@@ -55,11 +55,11 @@ public sealed class LedgerTransaction
         IReadOnlyCollection<LedgerEntry> entries)
     {
         var totalDebit = entries
-            .Where(entry => entry.Type == LedgerEntryType.Debit)
+            .Where(entry => entry.Type == ELedgerEntryType.Debit)
             .Sum(entry => entry.Amount.Amount);
 
         var totalCredit = entries
-            .Where(entry => entry.Type == LedgerEntryType.Credit)
+            .Where(entry => entry.Type == ELedgerEntryType.Credit)
             .Sum(entry => entry.Amount.Amount);
 
         if (totalDebit != totalCredit)

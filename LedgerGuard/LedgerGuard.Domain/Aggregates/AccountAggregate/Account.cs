@@ -6,13 +6,13 @@ public sealed class Account
 {
     public Guid Id { get; }
     public string OwnerName { get; }
-    public AccountStatus Status { get; private set; }
+    public EAccountStatus Status { get; private set; }
     public Money Balance { get; private set; }
 
     private Account(
         Guid id,
         string ownerName,
-        AccountStatus status,
+        EAccountStatus status,
         Money balance)
     {
         Id = id;
@@ -37,31 +37,31 @@ public sealed class Account
         return new Account(
             Guid.NewGuid(),
             ownerName,
-            AccountStatus.Active,
-            Money.Zero(Currency.Brl));
+            EAccountStatus.Active,
+            Money.Zero(ECurrency.Brl));
     }
 
     public void Block()
     {
-        if (Status != AccountStatus.Active)
+        if (Status != EAccountStatus.Active)
             throw new InvalidOperationException(
                 "Only active accounts can be blocked.");
 
-        Status = AccountStatus.Blocked;
+        Status = EAccountStatus.Blocked;
     }
 
     public void Unblock()
     {
-        if (Status != AccountStatus.Blocked)
+        if (Status != EAccountStatus.Blocked)
             throw new InvalidOperationException(
                 "Only blocked accounts can be unblocked.");
 
-        Status = AccountStatus.Active;
+        Status = EAccountStatus.Active;
     }
 
     public void Close()
     {
-        if (Status == AccountStatus.Closed)
+        if (Status == EAccountStatus.Closed)
             throw new InvalidOperationException(
                 "Account is already closed.");
 
@@ -69,12 +69,12 @@ public sealed class Account
             throw new InvalidOperationException(
                 "Only accounts with zero balance can be closed.");
 
-        Status = AccountStatus.Closed;
+        Status = EAccountStatus.Closed;
     }
 
     public void Credit(Money amount)
     {
-        if (Status == AccountStatus.Closed)
+        if (Status == EAccountStatus.Closed)
             throw new InvalidOperationException(
                 "Closed accounts cannot receive funds.");
 

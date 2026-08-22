@@ -5,9 +5,9 @@ public class Money
     public const decimal MaxAmount = 999999999999999999.99m;
 
     public decimal Amount { get; set; }
-    public Currency Currency { get; set; }
+    public ECurrency Currency { get; set; }
 
-    public Money(decimal amount, Currency currency)
+    public Money(decimal amount, ECurrency currency)
     {
         if (amount > MaxAmount)
             throw new ArgumentOutOfRangeException(
@@ -34,8 +34,8 @@ public class Money
         Currency = currency;
     }
 
-    public static Money CreateBrl(decimal amount) => new(amount, Currency.Brl);
-    public static Money Zero(Currency currency) => new(0m, currency);
+    public static Money CreateBrl(decimal amount) => new(amount, ECurrency.Brl);
+    public static Money Zero(ECurrency currency) => new(0m, currency);
     
     public Money Add(Money other)
     {

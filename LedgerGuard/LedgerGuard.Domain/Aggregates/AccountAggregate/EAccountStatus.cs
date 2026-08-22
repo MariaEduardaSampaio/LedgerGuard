@@ -1,6 +1,6 @@
 namespace LedgerGuard.Domain.Aggregates.AccountAggregate;
 
-public enum AccountStatus
+public enum EAccountStatus
 {
     Active,
     Blocked,

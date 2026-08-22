@@ -14,21 +14,21 @@ public sealed class LedgerTransactionTests
         var debit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var credit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var transaction = LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [debit, credit]);
 
         // Assert
         transaction.Id.Should().NotBeEmpty();
-        transaction.Type.Should().Be(LedgerTransactionType.Transfer);
+        transaction.Type.Should().Be(ELedgerTransactionType.Transfer);
         transaction.Entries.Should().HaveCount(2);
         transaction.Entries.Should().Contain(debit);
         transaction.Entries.Should().Contain(credit);
@@ -41,21 +41,21 @@ public sealed class LedgerTransactionTests
         var debit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var firstCredit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(60m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         var secondCredit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(40m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var transaction = LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [debit, firstCredit, secondCredit]);
 
         // Assert
@@ -67,7 +67,7 @@ public sealed class LedgerTransactionTests
     {
         // Act
         var act = () => LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             []);
 
         // Assert
@@ -82,11 +82,11 @@ public sealed class LedgerTransactionTests
         var entry = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         // Act
         var act = () => LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [entry]);
 
         // Assert
@@ -99,7 +99,7 @@ public sealed class LedgerTransactionTests
     {
         // Act
         var act = () => LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             null!);
 
         // Assert
@@ -115,16 +115,16 @@ public sealed class LedgerTransactionTests
         var debit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var credit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(99.99m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var act = () => LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [debit, credit]);
 
         // Assert
@@ -139,16 +139,16 @@ public sealed class LedgerTransactionTests
         var debit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var credit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100.01m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var act = () => LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [debit, credit]);
 
         // Assert
@@ -163,16 +163,16 @@ public sealed class LedgerTransactionTests
         var debit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100.01m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var credit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var act = () => LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [debit, credit]);
 
         // Assert
@@ -187,16 +187,16 @@ public sealed class LedgerTransactionTests
         var firstDebit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(50m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var secondDebit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(50m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         // Act
         var act = () => LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [firstDebit, secondDebit]);
 
         // Assert
@@ -211,16 +211,16 @@ public sealed class LedgerTransactionTests
         var firstCredit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(50m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         var secondCredit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(50m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var act = () => LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [firstCredit, secondCredit]);
 
         // Assert
@@ -235,48 +235,48 @@ public sealed class LedgerTransactionTests
         var firstDebit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(60m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var secondDebit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(40m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var firstCredit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(30m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         var secondCredit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(70m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var transaction = LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [firstDebit, secondDebit, firstCredit, secondCredit]);
 
         // Assert
         transaction.Entries.Should().HaveCount(4);
     }
 
-    [TestCase(LedgerTransactionType.Deposit)]
-    [TestCase(LedgerTransactionType.Transfer)]
-    [TestCase(LedgerTransactionType.Reversal)]
+    [TestCase(ELedgerTransactionType.Deposit)]
+    [TestCase(ELedgerTransactionType.Transfer)]
+    [TestCase(ELedgerTransactionType.Reversal)]
     public void Create_WhenTransactionTypeIsValid_ShouldCreateLedgerTransaction(
-        LedgerTransactionType type)
+        ELedgerTransactionType type)
     {
         // Arrange
         var debit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var credit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var transaction = LedgerTransaction.Create(
@@ -294,14 +294,14 @@ public sealed class LedgerTransactionTests
         var debit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var credit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
-        var undefinedType = (LedgerTransactionType)999;
+        var undefinedType = (ELedgerTransactionType)999;
 
         // Act
         var act = () => LedgerTransaction.Create(
@@ -321,16 +321,16 @@ public sealed class LedgerTransactionTests
         var debit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         var credit = LedgerEntry.Create(
             Guid.NewGuid(),
             Money.CreateBrl(100m),
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Act
         var transaction = LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             [debit, credit]);
 
         // Assert
@@ -346,16 +346,16 @@ public sealed class LedgerTransactionTests
             LedgerEntry.Create(
                 Guid.NewGuid(),
                 Money.CreateBrl(100m),
-                LedgerEntryType.Debit),
+                ELedgerEntryType.Debit),
 
             LedgerEntry.Create(
                 Guid.NewGuid(),
                 Money.CreateBrl(100m),
-                LedgerEntryType.Credit)
+                ELedgerEntryType.Credit)
         };
 
         var transaction = LedgerTransaction.Create(
-            LedgerTransactionType.Transfer,
+            ELedgerTransactionType.Transfer,
             entries);
 
         // Act
@@ -363,7 +363,7 @@ public sealed class LedgerTransactionTests
             LedgerEntry.Create(
                 Guid.NewGuid(),
                 Money.CreateBrl(50m),
-                LedgerEntryType.Credit));
+                ELedgerEntryType.Credit));
 
         // Assert
         transaction.Entries.Should().HaveCount(2);

@@ -1,6 +1,6 @@
 namespace LedgerGuard.Domain.Aggregates.LedgerAggregate;
 
-public enum LedgerEntryType
+public enum ELedgerEntryType
 {
     Debit,
     Credit

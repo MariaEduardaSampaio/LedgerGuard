@@ -18,12 +18,12 @@ public sealed class LedgerEntryTests
         var entry = LedgerEntry.Create(
             accountId,
             amount,
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         // Assert
         entry.AccountId.Should().Be(accountId);
         entry.Amount.Should().Be(amount);
-        entry.Type.Should().Be(LedgerEntryType.Debit);
+        entry.Type.Should().Be(ELedgerEntryType.Debit);
     }
 
     [Test]
@@ -37,12 +37,12 @@ public sealed class LedgerEntryTests
         var entry = LedgerEntry.Create(
             accountId,
             amount,
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Assert
         entry.AccountId.Should().Be(accountId);
         entry.Amount.Should().Be(amount);
-        entry.Type.Should().Be(LedgerEntryType.Credit);
+        entry.Type.Should().Be(ELedgerEntryType.Credit);
     }
 
     [Test]
@@ -55,7 +55,7 @@ public sealed class LedgerEntryTests
         var act = () => LedgerEntry.Create(
             Guid.Empty,
             amount,
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Assert
         act.Should()
@@ -68,13 +68,13 @@ public sealed class LedgerEntryTests
     {
         // Arrange
         var accountId = Guid.NewGuid();
-        var amount = Money.Zero(Currency.Brl);
+        var amount = Money.Zero(ECurrency.Brl);
 
         // Act
         var act = () => LedgerEntry.Create(
             accountId,
             amount,
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Assert
         act.Should()
@@ -88,7 +88,7 @@ public sealed class LedgerEntryTests
         // Arrange
         var accountId = Guid.NewGuid();
         var amount = Money.CreateBrl(100m);
-        var undefinedType = (LedgerEntryType)999;
+        var undefinedType = (ELedgerEntryType)999;
 
         // Act
         var act = () => LedgerEntry.Create(
@@ -113,7 +113,7 @@ public sealed class LedgerEntryTests
         var entry = LedgerEntry.Create(
             accountId,
             amount,
-            LedgerEntryType.Credit);
+            ELedgerEntryType.Credit);
 
         // Assert
         entry.Amount.Should().Be(amount);
@@ -131,7 +131,7 @@ public sealed class LedgerEntryTests
         var entry = LedgerEntry.Create(
             accountId,
             amount,
-            LedgerEntryType.Debit);
+            ELedgerEntryType.Debit);
 
         // Assert
         entry.Amount.Should().Be(amount);

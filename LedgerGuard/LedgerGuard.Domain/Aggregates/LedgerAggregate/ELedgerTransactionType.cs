@@ -1,6 +1,6 @@
 namespace LedgerGuard.Domain.Aggregates.LedgerAggregate;
 
-public enum LedgerTransactionType
+public enum ELedgerTransactionType
 {
     Deposit,
     Transfer,

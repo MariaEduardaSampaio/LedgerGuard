@@ -6,12 +6,12 @@ public sealed record LedgerEntry
 {
     public Guid AccountId { get; }
     public Money Amount { get; }
-    public LedgerEntryType Type { get; }
+    public ELedgerEntryType Type { get; }
 
     private LedgerEntry(
         Guid accountId,
         Money amount,
-        LedgerEntryType type)
+        ELedgerEntryType type)
     {
         AccountId = accountId;
         Amount = amount;
@@ -21,7 +21,7 @@ public sealed record LedgerEntry
     public static LedgerEntry Create(
         Guid accountId,
         Money amount,
-        LedgerEntryType type)
+        ELedgerEntryType type)
     {
         if (accountId == Guid.Empty)
             throw new ArgumentException(

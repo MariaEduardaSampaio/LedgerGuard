@@ -14,7 +14,7 @@ public sealed class Tests
         
         account.OwnerName.Should().Be("John Doe");
         account.Balance.Amount.Should().Be(0);
-        account.Status.Should().Be(AccountStatus.Active);
+        account.Status.Should().Be(EAccountStatus.Active);
         account.Id.Should().NotBeEmpty();
     }
     
@@ -24,7 +24,7 @@ public sealed class Tests
         var account = Account.Create("John Doe");
         
         account.Block();
-        account.Status.Should().Be(AccountStatus.Blocked);
+        account.Status.Should().Be(EAccountStatus.Blocked);
     }
 
     [Test]
@@ -35,7 +35,7 @@ public sealed class Tests
         account.Block();
         account.Unblock();
 
-        account.Status.Should().Be(AccountStatus.Active);
+        account.Status.Should().Be(EAccountStatus.Active);
     }
     
     [Test]
@@ -46,7 +46,7 @@ public sealed class Tests
         account.Block();
         account.Close();
         
-        account.Status.Should().Be(AccountStatus.Closed);
+        account.Status.Should().Be(EAccountStatus.Closed);
     }
     
     [Test]
@@ -56,7 +56,7 @@ public sealed class Tests
 
         account.Close();
 
-        account.Status.Should().Be(AccountStatus.Closed);
+        account.Status.Should().Be(EAccountStatus.Closed);
     }
     
     [Test]
@@ -168,7 +168,7 @@ public sealed class Tests
             .Throw<InvalidOperationException>()
             .WithMessage("Only accounts with zero balance can be closed.");
 
-        account.Status.Should().Be(AccountStatus.Active);
+        account.Status.Should().Be(EAccountStatus.Active);
         account.Balance.Amount.Should().Be(0.01m);
     }
 
@@ -187,7 +187,7 @@ public sealed class Tests
             .Throw<InvalidOperationException>()
             .WithMessage("Only blocked accounts can be unblocked.");
 
-        account.Status.Should().Be(AccountStatus.Closed);
+        account.Status.Should().Be(EAccountStatus.Closed);
     }
 
     [Test]
@@ -205,7 +205,7 @@ public sealed class Tests
             .Throw<InvalidOperationException>()
             .WithMessage("Only active accounts can be blocked.");
 
-        account.Status.Should().Be(AccountStatus.Closed);
+        account.Status.Should().Be(EAccountStatus.Closed);
     }
 
     [Test]
@@ -223,7 +223,7 @@ public sealed class Tests
             .Throw<InvalidOperationException>()
             .WithMessage("Only active accounts can be blocked.");
 
-        account.Status.Should().Be(AccountStatus.Blocked);
+        account.Status.Should().Be(EAccountStatus.Blocked);
     }
 
     [Test]
@@ -243,7 +243,7 @@ public sealed class Tests
             .Throw<InvalidOperationException>()
             .WithMessage("Only blocked accounts can be unblocked.");
 
-        account.Status.Should().Be(AccountStatus.Active);
+        account.Status.Should().Be(EAccountStatus.Active);
     }
 
     [Test]
@@ -261,7 +261,7 @@ public sealed class Tests
             .Throw<InvalidOperationException>()
             .WithMessage("Account is already closed.");
 
-        account.Status.Should().Be(AccountStatus.Closed);
+        account.Status.Should().Be(EAccountStatus.Closed);
     }
 
     [Test]

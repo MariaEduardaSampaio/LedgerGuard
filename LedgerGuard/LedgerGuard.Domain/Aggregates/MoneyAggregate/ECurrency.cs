@@ -1,6 +1,6 @@
 namespace LedgerGuard.Domain.Aggregates.MoneyAggregate;
 
-public enum Currency
+public enum ECurrency
 {
     Brl
 }
