@@ -276,4 +276,228 @@ public sealed class Tests
         balanceProperty!.SetMethod.Should().NotBeNull();
         balanceProperty.SetMethod!.IsPublic.Should().BeFalse();
     }
+    
+    [Test]
+    public void Debit_WhenAccountIsActive_ShouldDecreaseBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        account.Debit(Money.CreateBrl(40m));
+
+        // Assert
+        account.Balance.Amount.Should().Be(60m);
+    }
+
+    [Test]
+    public void Debit_WhenAmountIsMinimumValidValue_ShouldDecreaseBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(1m));
+
+        // Act
+        account.Debit(Money.CreateBrl(0.01m));
+
+        // Assert
+        account.Balance.Amount.Should().Be(0.99m);
+    }
+
+    [Test]
+    public void Debit_WhenAmountIsOneCentBelowBalance_ShouldDecreaseBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        account.Debit(Money.CreateBrl(99.99m));
+
+        // Assert
+        account.Balance.Amount.Should().Be(0.01m);
+    }
+
+    [Test]
+    public void Debit_WhenAmountEqualsBalance_ShouldReduceBalanceToZero()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        account.Debit(Money.CreateBrl(100m));
+
+        // Assert
+        account.Balance.Amount.Should().Be(0m);
+    }
+    
+    [Test]
+    public void Debit_WhenAmountExceedsBalanceByOneCent_ShouldRejectDebit()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        var act = () =>
+            account.Debit(Money.CreateBrl(100.01m));
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>();
+    }
+
+    [Test]
+    public void Debit_WhenAccountHasZeroBalance_ShouldRejectDebit()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+
+        // Act
+        var act = () =>
+            account.Debit(Money.CreateBrl(0.01m));
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>();
+    }
+
+    [Test]
+    public void Debit_WhenAccountIsBlocked_ShouldRejectDebit()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+        account.Block();
+
+        // Act
+        var act = () =>
+            account.Debit(Money.CreateBrl(50m));
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>();
+    }
+
+    [Test]
+    public void Debit_WhenAccountIsClosed_ShouldRejectDebit()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Close();
+
+        // Act
+        var act = () =>
+            account.Debit(Money.CreateBrl(0.01m));
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>();
+    }
+
+    [Test]
+    public void Debit_WhenAmountIsZero_ShouldRejectDebit()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        var amount = Money.Zero(ECurrency.Brl);
+
+        // Act
+        var act = () =>
+            account.Debit(amount);
+
+        // Assert
+        act.Should()
+            .Throw<ArgumentOutOfRangeException>()
+            .WithParameterName("amount");
+    }
+
+    [Test]
+    public void Debit_WhenAmountIsNull_ShouldRejectDebit()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+
+        // Act
+        var act = () =>
+            account.Debit(null!);
+
+        // Assert
+        act.Should()
+            .Throw<ArgumentNullException>()
+            .WithParameterName("amount");
+    }
+    
+    [Test]
+    public void Debit_WhenAccountHasInsufficientFunds_ShouldNotChangeBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        var act = () =>
+            account.Debit(Money.CreateBrl(100.01m));
+
+        act.Should().Throw<InvalidOperationException>();
+
+        // Assert
+        account.Balance.Amount.Should().Be(100m);
+    }
+
+    [Test]
+    public void Debit_WhenAccountIsBlocked_ShouldNotChangeBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+        account.Block();
+
+        // Act
+        var act = () =>
+            account.Debit(Money.CreateBrl(50m));
+
+        act.Should().Throw<InvalidOperationException>();
+
+        // Assert
+        account.Balance.Amount.Should().Be(100m);
+        account.Status.Should().Be(EAccountStatus.Blocked);
+    }
+
+    [Test]
+    public void Debit_WhenAccountIsClosed_ShouldNotChangeBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Close();
+
+        // Act
+        var act = () =>
+            account.Debit(Money.CreateBrl(10m));
+
+        act.Should().Throw<InvalidOperationException>();
+
+        // Assert
+        account.Balance.Amount.Should().Be(0m);
+        account.Status.Should().Be(EAccountStatus.Closed);
+    }
+
+    [Test]
+    public void Debit_WhenDebitSucceeds_ShouldKeepAccountActive()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        account.Debit(Money.CreateBrl(30m));
+
+        // Assert
+        account.Balance.Amount.Should().Be(70m);
+        account.Status.Should().Be(EAccountStatus.Active);
+    }
 }

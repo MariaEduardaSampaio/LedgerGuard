@@ -80,4 +80,24 @@ public sealed class Account
 
         Balance = Balance.Add(amount);
     }
+    
+    public void Debit(Money amount)
+    {
+        ArgumentNullException.ThrowIfNull(amount);
+
+        if (Status != EAccountStatus.Active)
+            throw new InvalidOperationException(
+                "Only active accounts can send funds.");
+
+        if (amount.Amount <= 0)
+            throw new ArgumentOutOfRangeException(
+                nameof(amount),
+                "Debit amount must be greater than zero.");
+
+        if (Balance.Amount < amount.Amount)
+            throw new InvalidOperationException(
+                "Account has insufficient funds.");
+
+        Balance = Balance.Subtract(amount);
+    }
 }
