@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\LedgerGuard.Application\LedgerGuard.Application.csproj" />
       <ProjectReference Include="..\LedgerGuard.Domain\LedgerGuard.Domain.csproj" />
     </ItemGroup>
 

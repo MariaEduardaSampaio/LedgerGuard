@@ -7,4 +7,8 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\LedgerGuard.Domain\LedgerGuard.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

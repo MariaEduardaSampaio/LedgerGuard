@@ -29,9 +29,9 @@ public sealed record LedgerEntry
                 nameof(accountId));
 
         if (amount.Amount <= 0)
-            throw new ArgumentException(
-                "Ledger entry amount must be greater than zero.",
-                nameof(amount));
+            throw new ArgumentOutOfRangeException(
+                nameof(amount), 
+                "Ledger entry amount must be greater than zero.");
         
         if (!Enum.IsDefined(type))
             throw new ArgumentOutOfRangeException(
