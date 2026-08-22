@@ -1,0 +1,46 @@
+using LedgerGuard.Domain.Aggregates.MoneyAggregate;
+
+namespace LedgerGuard.Domain.Aggregates.LedgerAggregate;
+
+public sealed record LedgerEntry
+{
+    public Guid AccountId { get; }
+    public Money Amount { get; }
+    public LedgerEntryType Type { get; }
+
+    private LedgerEntry(
+        Guid accountId,
+        Money amount,
+        LedgerEntryType type)
+    {
+        AccountId = accountId;
+        Amount = amount;
+        Type = type;
+    }
+
+    public static LedgerEntry Create(
+        Guid accountId,
+        Money amount,
+        LedgerEntryType type)
+    {
+        if (accountId == Guid.Empty)
+            throw new ArgumentException(
+                "Account id cannot be empty.",
+                nameof(accountId));
+
+        if (amount.Amount <= 0)
+            throw new ArgumentException(
+                "Ledger entry amount must be greater than zero.",
+                nameof(amount));
+        
+        if (!Enum.IsDefined(type))
+            throw new ArgumentOutOfRangeException(
+                nameof(type), 
+                "Invalid ledger entry type.");
+
+        return new LedgerEntry(
+            accountId,
+            amount,
+            type);
+    }
+}
