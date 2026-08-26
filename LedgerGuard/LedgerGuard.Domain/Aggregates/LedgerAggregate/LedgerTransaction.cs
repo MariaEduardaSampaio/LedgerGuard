@@ -2,11 +2,13 @@ namespace LedgerGuard.Domain.Aggregates.LedgerAggregate;
 
 public sealed class LedgerTransaction
 {
-    private readonly List<LedgerEntry> _entries;
+    private readonly List<LedgerEntry> _entries = [];
 
     public Guid Id { get; }
     public ELedgerTransactionType Type { get; }
     public IReadOnlyCollection<LedgerEntry> Entries => _entries.AsReadOnly();
+
+    private LedgerTransaction() { }
 
     private LedgerTransaction(
         Guid id,

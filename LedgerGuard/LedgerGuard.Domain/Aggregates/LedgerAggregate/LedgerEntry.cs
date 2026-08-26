@@ -2,11 +2,13 @@ using LedgerGuard.Domain.ValueObjects;
 
 namespace LedgerGuard.Domain.Aggregates.LedgerAggregate;
 
-public sealed record LedgerEntry
+public sealed class LedgerEntry
 {
     public Guid AccountId { get; }
     public Money Amount { get; }
     public ELedgerEntryType Type { get; }
+
+    private LedgerEntry() { }
 
     private LedgerEntry(
         Guid accountId,

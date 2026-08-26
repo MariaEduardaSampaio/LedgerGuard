@@ -8,6 +8,8 @@ public sealed class TransferReversal
     public DateTimeOffset RequestedAt { get; }
     public DateTimeOffset? CompletedAt { get; private set; }
     public Guid? LedgerTransactionId { get; private set; }
+    
+    private TransferReversal() { }
 
     private TransferReversal(Guid id, Guid transferId, DateTimeOffset requestedAt)
     {

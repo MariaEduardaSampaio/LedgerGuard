@@ -10,6 +10,8 @@ public sealed class Transfer
     public Money Amount { get; }
     public Guid LedgerTransactionId { get; }
     public DateTimeOffset CreatedAt { get; }
+    
+    private Transfer() { }
 
     private Transfer(
         Guid id,
