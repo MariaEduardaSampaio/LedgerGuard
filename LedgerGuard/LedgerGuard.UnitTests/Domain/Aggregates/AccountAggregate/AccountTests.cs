@@ -500,4 +500,88 @@ public sealed class Tests
         account.Balance.Amount.Should().Be(70m);
         account.Status.Should().Be(EAccountStatus.Active);
     }
+    
+    
+    [Test]
+    public void DebitForReversal_WhenAccountIsActive_ShouldDecreaseBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        account.DebitForReversal(Money.CreateBrl(40m));
+
+        // Assert
+        account.Balance.Amount.Should().Be(60m);
+        account.Status.Should().Be(EAccountStatus.Active);
+    }
+
+    [Test]
+    public void DebitForReversal_WhenAccountIsBlocked_ShouldDecreaseBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+        account.Block();
+
+        // Act
+        account.DebitForReversal(Money.CreateBrl(40m));
+
+        // Assert
+        account.Balance.Amount.Should().Be(60m);
+        account.Status.Should().Be(EAccountStatus.Blocked);
+    }
+
+    [Test]
+    public void DebitForReversal_WhenAccountIsClosed_ShouldRejectDebit()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Close();
+
+        // Act
+        var act = () =>
+            account.DebitForReversal(Money.CreateBrl(10m));
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>();
+
+        account.Balance.Amount.Should().Be(0m);
+        account.Status.Should().Be(EAccountStatus.Closed);
+    }
+
+    [Test]
+    public void DebitForReversal_WhenBalanceIsInsufficient_ShouldNotChangeBalance()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        var act = () =>
+            account.DebitForReversal(Money.CreateBrl(100.01m));
+
+        // Assert
+        act.Should()
+            .Throw<InvalidOperationException>();
+
+        account.Balance.Amount.Should().Be(100m);
+        account.Status.Should().Be(EAccountStatus.Active);
+    }
+    
+    [Test]
+    public void DebitForReversal_WhenAmountEqualsBalance_ShouldReduceBalanceToZero()
+    {
+        // Arrange
+        var account = Account.Create("John Doe");
+        account.Credit(Money.CreateBrl(100m));
+
+        // Act
+        account.DebitForReversal(Money.CreateBrl(100m));
+
+        // Assert
+        account.Balance.Amount.Should().Be(0m);
+    }
 }

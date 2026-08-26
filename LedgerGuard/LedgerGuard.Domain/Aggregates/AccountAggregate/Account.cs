@@ -100,4 +100,24 @@ public sealed class Account
 
         Balance = Balance.Subtract(amount);
     }
+    
+    public void DebitForReversal(Money amount)
+    {
+        ArgumentNullException.ThrowIfNull(amount);
+
+        if (Status == EAccountStatus.Closed)
+            throw new InvalidOperationException(
+                "Closed accounts cannot be debited.");
+
+        if (amount.Amount <= 0)
+            throw new ArgumentOutOfRangeException(
+                nameof(amount),
+                "Debit amount must be greater than zero.");
+
+        if (Balance.Amount < amount.Amount)
+            throw new InvalidOperationException(
+                "Account has insufficient funds.");
+
+        Balance = Balance.Subtract(amount);
+    }
 }
