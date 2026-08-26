@@ -10,6 +10,8 @@ public sealed class Account
     public EAccountStatus Status { get; private set; }
     public Money Balance { get; private set; }
 
+    private Account() { }
+
     private Account(
         Guid id,
         string ownerName,
