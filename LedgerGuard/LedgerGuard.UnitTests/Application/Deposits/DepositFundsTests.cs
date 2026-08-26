@@ -2,7 +2,7 @@ using FluentAssertions;
 using LedgerGuard.Application.Deposits;
 using LedgerGuard.Domain.Aggregates.AccountAggregate;
 using LedgerGuard.Domain.Aggregates.LedgerAggregate;
-using LedgerGuard.Domain.Aggregates.MoneyAggregate;
+using LedgerGuard.Domain.ValueObjects;
 
 namespace LedgerGuard.UnitTests.Application.Deposits;
 

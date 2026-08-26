@@ -1,4 +1,6 @@
-﻿namespace LedgerGuard.Domain.Aggregates.MoneyAggregate;
+﻿using LedgerGuard.Domain.Enums;
+
+namespace LedgerGuard.Domain.ValueObjects;
 
 public class Money
 {

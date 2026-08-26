@@ -1,8 +1,8 @@
 using FluentAssertions;
 using LedgerGuard.Application.Reversals;
-using LedgerGuard.Domain.Aggregates.MoneyAggregate;
 using LedgerGuard.Domain.Aggregates.TransferAggregate;
 using LedgerGuard.Domain.Aggregates.TransferReversalAggregate;
+using LedgerGuard.Domain.ValueObjects;
 
 namespace LedgerGuard.UnitTests.Application.Reversals;
 

@@ -1,7 +1,7 @@
 using LedgerGuard.Domain.Aggregates.AccountAggregate;
 using LedgerGuard.Domain.Aggregates.LedgerAggregate;
-using LedgerGuard.Domain.Aggregates.MoneyAggregate;
 using LedgerGuard.Domain.Aggregates.TransferAggregate;
+using LedgerGuard.Domain.ValueObjects;
 
 namespace LedgerGuard.Application.Transfers;
 

@@ -1,4 +1,4 @@
-using LedgerGuard.Domain.Aggregates.MoneyAggregate;
+using LedgerGuard.Domain.ValueObjects;
 
 namespace LedgerGuard.Domain.Aggregates.LedgerAggregate;
 

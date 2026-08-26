@@ -1,6 +1,7 @@
 using FluentAssertions;
-using LedgerGuard.Domain.Aggregates.MoneyAggregate;
 using LedgerGuard.Domain.Aggregates.TransferAggregate;
+using LedgerGuard.Domain.Enums;
+using LedgerGuard.Domain.ValueObjects;
 
 namespace LedgerGuard.UnitTests.Domain.Aggregates.TransferAggregate;
 
